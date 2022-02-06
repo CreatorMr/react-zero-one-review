@@ -190,7 +190,7 @@ class Counter extends Component {
 }
 
 ```
-##### 合成时间
+##### 合成事件
 react 所有事件委托给全局的 document
 - 提供统一的API 抹平各大浏览器差异
 - 所有时间绑定在React root Element进行事件委托
