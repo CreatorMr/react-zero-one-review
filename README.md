@@ -268,3 +268,25 @@ memo 性能优化：
 React.memo对子组件默认使用浅比较对你前后两次props的变更，，若未发生变更则不会重新渲染，因此提高了性能。
 
 userMemo useCallback 通过对传入的依赖（浅比较）来确定返回新的值还是以前的值
+
+
+
+
+##### PureComponent memo
+
+PureComponent  重写了 shouldComponentUpdate  在内部进行浅比较
+那么对于函数式组件实现类似的pureComponent的使用memo
+
+memo类似代码的方式创造一个类组件返回， 该类组件继承pureComponent 
+在内部return 传入的函数式组件 FunctionComponent(this.props) or <FunctionComponent {...this.props} />
+
+##### 高阶组件
+
+- 高阶组件就是一个函数，传给他一个组件返回新组件， 实现组件间的代码复用
+
+高阶函数： 把函数当参数，返回新的函数
+
+JS中的函数要比一般语言中高级一些，其它语言Java等函数不能作为参数进行传递
+
+
+洋葱模型
