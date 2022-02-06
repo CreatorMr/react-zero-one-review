@@ -190,8 +190,10 @@ class Counter extends Component {
 }
 
 ```
-
+##### 合成时间
 react 所有事件委托给全局的 document
+- 提供统一的API 抹平各大浏览器差异
+- 所有时间绑定在React root Element进行事件委托
 
 ###### Transaction 事务
 
@@ -207,9 +209,62 @@ react 所有事件委托给全局的 document
 |setup props and state | componentWillMount| props   state | componentWillUnmount|
 |                      | render            | compomemtWillReceiveProps shouldComponentUpdate | |
 |                      | componentDidMount| shouldComponentUpdate ComponentUpdate | |
-|                      |                  | ComponentUpdate render| |
+|            “          |                  | ComponentUpdate render| |
 |                      |                  | render componentDidUpdate| |
 |                      |                  | componentDidUpdate        |  |
 
 
 <img src="./leftCycle.png">
+
+shouldComponentUpdate(nextProps, nextState) {
+
+}
+
+react 16 采用fiber架构
+
+<img src="./newleftCycle.png">
+
+阶段
+- render阶段纯净且没有副作用，可能会被React暂停， 中止或者重新启动
+- “Pre-commit 阶段” 可以读取DOM
+- “Commit阶段”可以使用DOM， 运行副作用， 安排更新
+
+```javascript
+//根据新的属性对象派生状态对象, 新的属性对象 和旧的状态对象
+getDerivedStateFromProps(nextProps, prevState) {
+    
+}
+
+getSnapshotBeforeUpdate() {
+    return ’一个返回值给componentDidUpdate‘
+}
+
+componentDidUpdate(nextProps, prevState, 接收快照返回值参数) {
+
+}
+```
+
+##### context
+在某些场景下，在整个组件树中传递数据，但确不想每一层传递属性， 可以在REact中使用强大的从而对系统API解决
+
+
+
+##### 类型检查
+- 要在组件的props上进行类型检查，只需要配置特定的propTypes属性
+- 可以通过配置特定的defaultProps属性类定义props的默认值
+
+```javascript
+import PropTypes from 'prop-types'
+
+MyComponent.propTypes = {
+    optionalArray: PropTypes.array
+}
+```
+
+#### hooks
+
+memo 性能优化：
+- 当react中一个组件进行更新时， 它的所有子组件都会进行重新渲染，即便子组件的props并未发生任何改变
+React.memo对子组件默认使用浅比较对你前后两次props的变更，，若未发生变更则不会重新渲染，因此提高了性能。
+
+userMemo useCallback 通过对传入的依赖（浅比较）来确定返回新的值还是以前的值

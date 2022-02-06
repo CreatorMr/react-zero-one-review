@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import { useState } from "react";
 // import './index.css';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
@@ -44,4 +46,23 @@ class Clock extends React.Component {
     }
 }
 
-ReactDOM.render(<Clock/>, document.getElementById('root'))
+const App = function () {
+    const [todo, setTodo] = useState({ id: 1, status: "TODO" });
+    return (
+      <div className="App">
+        <button
+          onClick={() => {
+            todo.status = !todo.status;
+            console.log(todo)
+            debugger
+            setTodo(todo);
+          }}
+        >
+          Toggle Status
+        </button>
+        <h1>{todo.status}</h1>
+      </div>
+    );
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'))
