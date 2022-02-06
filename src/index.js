@@ -20,6 +20,7 @@ import { useState } from "react";
 // import React from './react'
 // import ReactDOM from './react-dom'
 import Logger from './high/Logger'
+import Mousetracer from './MouseTracer'
 // class Clock extends React.Component {
 //     constructor(props) {
 //         super(props)
@@ -65,4 +66,4 @@ import Logger from './high/Logger'
 //     );
 // }
 
-ReactDOM.render(<Logger/>, document.getElementById('root'))
+ReactDOM.render(<Mousetracer/>, document.getElementById('root'))
